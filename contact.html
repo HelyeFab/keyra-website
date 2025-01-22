@@ -64,7 +64,8 @@
 
                 <div class="contact-form">
                     <h2>Send us a Message</h2>
-                    <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify>
+                        <input type="hidden" name="form-name" value="contact">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" required>
@@ -94,59 +95,6 @@
                         <button type="submit" class="submit-btn">Send Message</button>
                     </form>
                 </div>
-
-                <script>
-                    function handleSubmit(event) {
-                        event.preventDefault();
-                        
-                        const name = document.getElementById('name').value;
-                        const email = document.getElementById('email').value;
-                        const subject = document.getElementById('subject').value;
-                        const message = document.getElementById('message').value;
-                        
-                        // Determine recipient based on subject
-                        let recipient = 'support@keyra.app';
-                        if (subject === 'business') {
-                            recipient = 'business@keyra.app';
-                        } else if (subject === 'feedback') {
-                            recipient = 'support@keyra.app';
-                        }
-                        
-                        // Construct email body
-                        const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-                        
-                        // Format subject line based on selection
-                        let subjectLine = 'Other Inquiry';
-                        switch(subject) {
-                            case 'support':
-                                subjectLine = 'Technical Support Request';
-                                break;
-                            case 'feedback':
-                                subjectLine = 'App Feedback';
-                                break;
-                            case 'business':
-                                subjectLine = 'Business Inquiry';
-                                break;
-                        }
-                        
-                        // Create mailto URL
-                        const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(body)}`;
-                        
-                        // Show loading state
-                        const submitBtn = document.querySelector('.submit-btn');
-                        const originalText = submitBtn.textContent;
-                        submitBtn.textContent = 'Opening Email Client...';
-                        submitBtn.style.opacity = '0.7';
-                        
-                        // Open email client with slight delay for visual feedback
-                        setTimeout(() => {
-                            window.location.href = mailtoUrl;
-                            // Reset button
-                            submitBtn.textContent = originalText;
-                            submitBtn.style.opacity = '1';
-                        }, 500);
-                    }
-                </script>
             </div>
 
             <div class="faq-section">
