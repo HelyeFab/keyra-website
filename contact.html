@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Keyra</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <a href="index.html">Keyra</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="contact.html" class="active">Contact</a>
+                <a href="#" class="get-app-btn">Get the App</a>
+            </div>
+        </div>
+    </nav>
+    <script src="js/navigation.js"></script>
+
+    <main>
+        <section class="contact-content">
+            <h1>Get in Touch</h1>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Contact Information</h2>
+                    <p>Have questions about Keyra? We're here to help! Choose the best way to reach us below.</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <h3>Support</h3>
+                            <p>For technical issues and app support:</p>
+                            <a href="mailto:support@keyra.app">support@keyra.app</a>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <h3>Business Inquiries</h3>
+                            <p>For partnerships and business opportunities:</p>
+                            <a href="mailto:business@keyra.app">business@keyra.app</a>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <h3>Content Creation</h3>
+                            <p>For content creators and publishers:</p>
+                            <a href="mailto:content@keyra.app">content@keyra.app</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h2>Send us a Message</h2>
+                    <form id="contactForm" onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="support">Technical Support</option>
+                                <option value="feedback">App Feedback</option>
+                                <option value="business">Business Inquiry</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+
+                <script>
+                    function handleSubmit(event) {
+                        event.preventDefault();
+                        
+                        const name = document.getElementById('name').value;
+                        const email = document.getElementById('email').value;
+                        const subject = document.getElementById('subject').value;
+                        const message = document.getElementById('message').value;
+                        
+                        // Determine recipient based on subject
+                        let recipient = 'support@keyra.app';
+                        if (subject === 'business') {
+                            recipient = 'business@keyra.app';
+                        } else if (subject === 'feedback') {
+                            recipient = 'support@keyra.app';
+                        }
+                        
+                        // Construct email body
+                        const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+                        
+                        // Format subject line based on selection
+                        let subjectLine = 'Other Inquiry';
+                        switch(subject) {
+                            case 'support':
+                                subjectLine = 'Technical Support Request';
+                                break;
+                            case 'feedback':
+                                subjectLine = 'App Feedback';
+                                break;
+                            case 'business':
+                                subjectLine = 'Business Inquiry';
+                                break;
+                        }
+                        
+                        // Create mailto URL
+                        const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(body)}`;
+                        
+                        // Show loading state
+                        const submitBtn = document.querySelector('.submit-btn');
+                        const originalText = submitBtn.textContent;
+                        submitBtn.textContent = 'Opening Email Client...';
+                        submitBtn.style.opacity = '0.7';
+                        
+                        // Open email client with slight delay for visual feedback
+                        setTimeout(() => {
+                            window.location.href = mailtoUrl;
+                            // Reset button
+                            submitBtn.textContent = originalText;
+                            submitBtn.style.opacity = '1';
+                        }, 500);
+                    }
+                </script>
+            </div>
+
+            <div class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3>How do I reset my password?</h3>
+                        <p>You can reset your password by clicking the "Forgot Password" link on the login screen and following the instructions sent to your email.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How do I cancel my subscription?</h3>
+                        <p>You can manage your subscription settings in the app under Profile > Subscription > Cancel Subscription.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use Keyra offline?</h3>
+                        <p>Yes, you can download books for offline reading. However, some features like translation may require an internet connection.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How often is new content added?</h3>
+                        <p>New books are added weekly, with premium users getting early access to new content.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Keyra</h4>
+                <p>Interactive Multilingual  Book App</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links</h4>
+                <a href="index.html">Home</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <div class="footer-section">
+                <h4>Languages</h4>
+                <p>English</p>
+                <p>French</p>
+                <p>Spanish</p>
+                <p>Italian</p>
+                <p>German</p>
+                <p>Japanese</p>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#">Twitter</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Keyra. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
